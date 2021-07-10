@@ -1,0 +1,40 @@
+13:59:07 **** Incremental Build of configuration Debug for project AutoPilot ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -IC:/Users/juanr/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/juanr/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/juanr/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/juanr/STM32Cube/Repository/STM32Cube_FW_F4_V1.26.1/Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:92:3: warning: implicit declaration of function 'PwmESCMotorSetConfiguration' [-Wimplicit-function-declaration]
+   92 |   PwmESCMotorSetConfiguration();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:103:4: warning: implicit declaration of function 'GenerateCompareValueForPWMMotorControl' [-Wimplicit-function-declaration]
+  103 |    GenerateCompareValueForPWMMotorControl();
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:236:6: warning: conflicting types for 'PwmESCMotorSetConfiguration'
+  236 | void PwmESCMotorSetConfiguration(void)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:92:3: note: previous implicit declaration of 'PwmESCMotorSetConfiguration' was here
+   92 |   PwmESCMotorSetConfiguration();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:247:6: warning: conflicting types for 'GenerateCompareValueForPWMMotorControl'
+  247 | void GenerateCompareValueForPWMMotorControl()
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:103:4: note: previous implicit declaration of 'GenerateCompareValueForPWMMotorControl' was here
+  103 |    GenerateCompareValueForPWMMotorControl();
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "AutoPilot.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\juanr\Documents\Juan\UMNG\Robotica Aerea\AutoPilotAerialRobotics\AutoPilot\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AutoPilot.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AutoPilot.elf
+ 
+arm-none-eabi-objdump -h -S  AutoPilot.elf  > "AutoPilot.list"
+arm-none-eabi-objcopy  -O binary  AutoPilot.elf  "AutoPilot.bin"
+arm-none-eabi-size   AutoPilot.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9380	     20	   1644	  11044	   2b24	AutoPilot.elf
+Finished building: default.size.stdout
+ 
+Finished building: AutoPilot.bin
+ 
+Finished building: AutoPilot.list
+ 
+
+13:59:09 Build Finished. 0 errors, 4 warnings. (took 1s.677ms)
+
