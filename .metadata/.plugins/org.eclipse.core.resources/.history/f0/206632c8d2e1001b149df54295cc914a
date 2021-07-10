@@ -475,17 +475,6 @@ void GenerateCompareValueForPWMMotorControl(void)
 	__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,pwmCounterCompareResult);
 }
 
-void GeneratePWMForRotor(TIM_HandleTypeDef timer,int counts)
-{
-	__HAL_TIM_SET_COMPARE(&timer,TIM_CHANNEL_1,counts);
-}
-
-int GenerateCountsPerRotor()
-{
-	int counts=0;//Equation to be defined
-	return counts;
-}
-
 
 /* USER CODE END 4 */
 

@@ -322,7 +322,7 @@ static void MX_TIM9_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 6553;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim9, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -368,14 +368,13 @@ static void MX_TIM10_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 6553;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim10, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  __HAL_TIM_DISABLE_OCxPRELOAD(&htim10, TIM_CHANNEL_1);
   /* USER CODE BEGIN TIM10_Init 2 */
 
   /* USER CODE END TIM10_Init 2 */
@@ -401,7 +400,7 @@ static void MX_TIM11_Init(void)
 
   /* USER CODE END TIM11_Init 1 */
   htim11.Instance = TIM11;
-  htim11.Init.Prescaler = 27;
+  htim11.Init.Prescaler = 0;
   htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim11.Init.Period = 65535;
   htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -415,14 +414,13 @@ static void MX_TIM11_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 6553;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim11, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  __HAL_TIM_DISABLE_OCxPRELOAD(&htim11, TIM_CHANNEL_1);
   /* USER CODE BEGIN TIM11_Init 2 */
 
   /* USER CODE END TIM11_Init 2 */
@@ -453,7 +451,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void PwmESCMotorSetConfiguration(TIM_HandleTypeDef timer)
+void PwmESCMotorSetConfiguration(TIM_HandleTypeDef *timer)
 {
 	//start PWM 1 --Timer 3
 	HAL_Delay(4000);//wait for one second
@@ -473,17 +471,6 @@ void GenerateCompareValueForPWMMotorControl(void)
 
 	int pwmCounterCompareResult=219*inputFromDipSwitch+3277;
 	__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,pwmCounterCompareResult);
-}
-
-void GeneratePWMForRotor(TIM_HandleTypeDef timer,int counts)
-{
-	__HAL_TIM_SET_COMPARE(&timer,TIM_CHANNEL_1,counts);
-}
-
-int GenerateCountsPerRotor()
-{
-	int counts=0;//Equation to be defined
-	return counts;
 }
 
 
