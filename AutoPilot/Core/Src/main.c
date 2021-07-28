@@ -40,6 +40,17 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+extern UART_HandleTypeDef huart2;
+IMU_tstImuData myIMUData;
+uint8_t u8asax[3];
+/* Single byte to store input */
+uint8_t byte;
+uint8_t finalString[20] = {0};
+uint8_t idx = 0;
+
+
+
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim9;
@@ -58,8 +69,8 @@ static void MX_TIM5_Init(void);
 static void MX_TIM9_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_TIM11_Init(void);
+static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
-void GenerateCompareValueForPWMMotorControl(void);
 
 /* USER CODE END PFP */
 
@@ -101,11 +112,26 @@ int main(void)
   MX_TIM9_Init();
   MX_TIM10_Init();
   MX_TIM11_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+
+  //Initialize the MPU 9250 module
+ // MPU9250_Init(&hi2c1);
+  //Configures the IMU
+ // mpu_config.Accel_Full_Scale=AFS_SEL_4g;//Scale accelerometer 2g will be more accurate
+ // mpu_config.CONFIG_DLPF=DLPF_184A_188G_Hz; //Low pass digital filter
+ // mpu_config.ClockSource=Internal_8MHz;//Internal clock source
+ // mpu_config.Gyro_Full_Scale=FS_SEL_500;//Gyro scale
+ // mpu_config.Sleep_Mode_Bit=0;//Not in sleep mode
+ // MPU9250_Config(&mpu_config);
+
+  //PWM Configuration and Initialization
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);//init timer 3 -->PA6
   HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);//init timer 10 -->PB8
   HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_1);//init timer 9 -->PA2
   HAL_TIM_PWM_Start(&htim11, TIM_CHANNEL_1);//init timer 11 -->PB9
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,8 +141,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  GenerateCompareValueForPWMMotorControl();
-
+	  //GenerateCompareValueForPWMMotorControl();
   }
   /* USER CODE END 3 */
 }
@@ -163,6 +188,40 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 400000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
 }
 
 /**

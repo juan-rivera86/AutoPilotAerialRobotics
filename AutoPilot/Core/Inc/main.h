@@ -32,6 +32,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
+#include "stm32f4xx_hal_uart.h"
 
 /* USER CODE END Includes */
 
@@ -47,6 +49,11 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
+int main(void);
+
+void TIM6_DAC_IRQHandler(void);
+
+void USART2_IRQHandler(void);
 
 /* USER CODE END EM */
 
