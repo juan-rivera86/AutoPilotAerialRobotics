@@ -52,8 +52,11 @@ Mkfile.old
 dkms.conf
 
 #metadata files
-.metadata/.*
-.metadata/.plugins/*
-*.log*
+/.metadata/*
+/.metadata/.log
+/.metadata/.plugins/*
+*.log
 *.index*
 *.pdom*
+/AutoPilotAerialRobotics/.metadata/.plugins/org.eclipse.cdt.ui/*
+/.metadata/.plugins/org.eclipse.cdt.core/.log
